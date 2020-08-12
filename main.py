@@ -6,17 +6,22 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+# Update Semester, Subject, and Course Code accordingly
+SEMESTER = "Fall 2020"
+SUBJECT = "Computer Science"
+COURSE_CODE = "6300"
+
 # Open Webdriver for Chrome Version 84
 options = webdriver.ChromeOptions()
 options.add_argument("headless")
 path = '.\drivers\chromedriver.exe'
 driver = webdriver.Chrome(executable_path=path, chrome_options=options)
 
-# Navigate to GT Course Registration Website
-URL = r'https://login.gatech.edu/cas/login?service=https%3A%2F%2Fsso.sis.gatech.edu%3A443%2Fssomanager%2Fc%2FSSB'
-driver.get(URL)
-
 try:
+    # Navigate to GT Course Registration Website
+    URL = r'https://login.gatech.edu/cas/login?service=https%3A%2F%2Fsso.sis.gatech.edu%3A443%2Fssomanager%2Fc%2FSSB'
+    driver.get(URL)
+
     # Get GT OSCAR Credentials from .env file
     GTID = os.getenv('GTID')
     GTPW = os.getenv('GTPW')
@@ -29,11 +34,6 @@ try:
     driver.find_element_by_name("username").send_keys(GTID)
     driver.find_element_by_name("password").send_keys(GTPW)
     driver.find_element_by_name("submit").click()
-
-    # Update Semester, Subject, and Course Code accordingly
-    SEMESTER = "Fall 2020"
-    SUBJECT = "Computer Science"
-    COURSE_CODE = "6300"
 
     # Navigate to Student Services & Financial Aid - Select Term page
     URL = r"https://oscar.gatech.edu/pls/bprod/bwskfreg.P_AltPin"
