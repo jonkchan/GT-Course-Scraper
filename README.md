@@ -1,4 +1,4 @@
-# GT-Course-Scrapper
+# GT Course Scrapper
 
 GT Course Scrapper retrieves course registration data from GT OSCAR platform.
 
@@ -12,12 +12,12 @@ GT Course Scrapper retrieves course registration data from GT OSCAR platform.
 pip install -r requirements.txt
 ```
 
-2. Create `.env` file to store GT OSCAR Credentials
+2. Create `.env` file and update GT OSCAR Credentials
 
 ```bash
 touch .env
-echo "GTID=******" >> .env
-echo "GTPW=******" >> .env
+echo "GTID=<GT ID>" >> .env
+echo "GTPW=<GT Password>" >> .env
 ```
 
 ## Usage
