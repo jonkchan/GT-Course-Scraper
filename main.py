@@ -22,10 +22,11 @@ driver.find_element_by_name("username").send_keys(GTID)
 driver.find_element_by_name("password").send_keys(GTPW)
 driver.find_element_by_name("submit").click()
 
-# Update Semester, Subject, and Course CRN accordingly
+# Update Semester, Subject, and Course Code accordingly
 SEMESTER = "Fall 2020"
 SUBJECT = "Computer Science"
-CRN = "86063"
+COURSE_CODE = "6300"
+# CRN = "86063"
 
 try:
     # Navigate to Student Services & Financial Aid - Select Term
@@ -49,8 +50,7 @@ try:
     # Select Subject from dropdown
     subjects = driver.find_elements_by_css_selector("option")
     for subject in subjects:
-        subject_text = subject.get_attribute("innerText")
-        if subject_text == SUBJECT:
+        if subject.get_attribute("innerText") == SUBJECT:
             subject.click()
 
     # Click on 'Course Search' button
@@ -58,11 +58,13 @@ try:
         "input[type='submit'][name='SUB_BTN'][value='Course Search']")
     course_search_btn.click()
 
-    course_row = driver.find_elements_by_css_selector("td[class='dddefault']")
-    for row in course_row:
-        inner_value = row.get_attribute("value")
-        if inner_value == CRN:
-            print("matched")
+    course_rows = driver.find_elements_by_css_selector("td[class='dddefault']")
+    for row in course_rows:
+        print("VALUE:", row.get_attribute("value"))
+        print("HTML:", row.get_attribute("innerHTML"))
+        print("TEXT:", row.get_attribute("innerText"))
+        if row.get_attribute("innerText") == COURSE_CODE:
+            print(f"COURSE {COURSE_CODE} FOUND!")
 
 except Exception as e:
     print(e)
