@@ -59,13 +59,20 @@ try:
     course_search_btn.click()
 
     # Click on 'View Section' button for matching COURSE CODE
-    course_rows = driver.find_elements_by_css_selector("tr")
-    for row in course_rows:
-        if COURSE_CODE in row.get_attribute("innerText"):
-            view_section_button = row.find_element_by_css_selector(
+    course_rows = driver.find_elements_by_tag_name("tr")
+    for course_row in course_rows:
+        if COURSE_CODE in course_row.get_attribute("innerText"):
+            view_section_button = course_row.find_element_by_css_selector(
                 "input[name='SUB_BTN'][value='View Sections']")
             view_section_button.click()
             break
+
+    # Print available course section data
+    section_rows = driver.find_elements_by_css_selector(
+        "table.datadisplaytable tbody tr")
+    for section_row in section_rows:
+        if COURSE_CODE in section_row.get_attribute("innerText"):
+            print(section_row.get_attribute("innerText"))
 
 except Exception as e:
     print(e)
