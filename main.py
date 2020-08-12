@@ -60,9 +60,10 @@ try:
 
     # Select Subject from dropdown
     print(f"> Selecting {SUBJECT} Subject...")
-    subjects = driver.find_elements_by_css_selector("option")
+    subjects_css = "select[name='sel_subj'] option"
+    subjects = driver.find_elements_by_css_selector(subjects_css)
     for subject in subjects:
-        if subject.get_attribute('innerText') == SUBJECT:
+        if subject.text == SUBJECT:
             subject.click()
             break
 
@@ -88,10 +89,10 @@ try:
     section_table_css = 'table.datadisplaytable tbody tr'
     section_rows = driver.find_elements_by_css_selector(section_table_css)
     for section_row in section_rows:
-        if COURSE_CODE in section_row.get_attribute('innerText'):
+        section_row_text = section_row.get_attribute('innerText')
+        if COURSE_CODE in section_row_text:
             # Delimit section_row inner text by \t and split into array
-            section_data = section_row.get_attribute(
-                'innerText').split("\t")[1:]
+            section_data = section_row_text.split("\t")[1:]
             sections.append(section_data)
 
     if sections:
