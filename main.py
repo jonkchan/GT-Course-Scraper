@@ -68,7 +68,7 @@ try:
     course_search_btn.click()
 
     # Click on 'View Section' button for matching COURSE CODE
-    print(f"> Searching for Course {COURSE_CODE}...")
+    print(f"> Searching Courses for {COURSE_CODE}...")
     course_rows = driver.find_elements_by_tag_name("tr")
     for course_row in course_rows:
         if COURSE_CODE in course_row.get_attribute("innerText"):
@@ -78,7 +78,7 @@ try:
             break
 
     # Print available course section data
-    print(f"> Searching Sections for Course {COURSE_CODE}...")
+    print(f"> Searching Sections for {COURSE_CODE}...")
     sections = []
     section_table_css = "table.datadisplaytable tbody tr"
     section_rows = driver.find_elements_by_css_selector(section_table_css)
