@@ -78,6 +78,7 @@ try:
             break
 
     # Print available course section data
+    print(f"> Searching Sections for Course {COURSE_CODE}...")
     sections = []
     section_table_css = "table.datadisplaytable tbody tr"
     section_rows = driver.find_elements_by_css_selector(section_table_css)
