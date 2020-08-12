@@ -1,6 +1,6 @@
-# GT Course Scrapper
+# GT Course Scraper
 
-GT Course Scrapper retrieves course registration data from GT OSCAR platform.
+GT Course Scraper retrieves course registration data from GT OSCAR platform.
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
