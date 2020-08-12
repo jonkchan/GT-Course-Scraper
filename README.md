@@ -20,6 +20,15 @@ echo "GTID=<GT ID>" >> .env
 echo "GTPW=<GT Password>" >> .env
 ```
 
+3. Update `SEMESTER`, `SUBJECT`, & `COURSE_CODE` variables under `main.py`
+
+```python
+# ./main.py
+SEMESTER = "Fall 2020"
+SUBJECT = "Computer Science"
+COURSE_CODE = "6300"
+```
+
 ## Usage
 
 ```bash
