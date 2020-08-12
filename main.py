@@ -56,6 +56,7 @@ try:
     for subject in subjects:
         if subject.get_attribute("innerText") == SUBJECT:
             subject.click()
+            break
 
     # Click on 'Course Search' button
     course_search_btn = driver.find_element_by_css_selector(
