@@ -1,6 +1,6 @@
 # GT Course Scraper
 
-GT Course Scraper retrieves course registration data from GT OSCAR platform.
+GT Course Scraper retrieves the latest course registration data from the GT OSCAR Registration platform.
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
@@ -34,6 +34,10 @@ COURSE_CODE = "6300"
 ```bash
 python main.py
 ```
+
+## Example
+
+<img src="https://i.imgur.com/IIu6BMV.gif" width="450" />
 
 ## License
 
