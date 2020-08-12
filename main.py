@@ -58,13 +58,14 @@ try:
         "input[type='submit'][name='SUB_BTN'][value='Course Search']")
     course_search_btn.click()
 
-    course_rows = driver.find_elements_by_css_selector("td[class='dddefault']")
+    # Click on 'View Section' button for matching COURSE CODE
+    course_rows = driver.find_elements_by_css_selector("tr")
     for row in course_rows:
-        print("VALUE:", row.get_attribute("value"))
-        print("HTML:", row.get_attribute("innerHTML"))
-        print("TEXT:", row.get_attribute("innerText"))
-        if row.get_attribute("innerText") == COURSE_CODE:
-            print(f"COURSE {COURSE_CODE} FOUND!")
+        if COURSE_CODE in row.get_attribute("innerText"):
+            view_section_button = row.find_element_by_css_selector(
+                "input[name='SUB_BTN'][value='View Sections']")
+            view_section_button.click()
+            break
 
 except Exception as e:
     print(e)
