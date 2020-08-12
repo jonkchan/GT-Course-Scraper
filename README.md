@@ -37,7 +37,7 @@ python main.py
 
 ## Example
 
-<img src="https://i.imgur.com/IIu6BMV.gif" width="450" />
+<img src="https://i.imgur.com/IIu6BMV.gif" width="800" />
 
 ## License
 
