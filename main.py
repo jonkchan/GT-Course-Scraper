@@ -21,7 +21,7 @@ GTID = os.getenv('GTID')
 GTPW = os.getenv('GTPW')
 
 # Log into GT OSCAR with credentials
-print("Logging in...")
+print("> Logging in...")
 driver.find_element_by_name("username").send_keys(GTID)
 driver.find_element_by_name("password").send_keys(GTPW)
 driver.find_element_by_name("submit").click()
@@ -42,13 +42,13 @@ try:
     semester_dropdown.select_by_visible_text(SEMESTER)
 
     # Click on 'Submit' button
-    submit_btn = driver.find_element_by_css_selector(
-        "input[type='submit'][value='Submit']")
+    submit_btn_css = "input[type='submit'][value='Submit']"
+    submit_btn = driver.find_element_by_css_selector(submit_btn_css)
     submit_btn.click()
 
     # Click on 'Class Search' button
-    class_search_btn = driver.find_element_by_css_selector(
-        "input[type='submit'][value='Class Search']")
+    class_search_css = "input[type='submit'][value='Class Search']"
+    class_search_btn = driver.find_element_by_css_selector(class_search_css)
     class_search_btn.click()
 
     # Select Subject from dropdown
@@ -60,8 +60,8 @@ try:
             break
 
     # Click on 'Course Search' button
-    course_search_btn = driver.find_element_by_css_selector(
-        "input[type='submit'][name='SUB_BTN'][value='Course Search']")
+    course_search_css = "input[type='submit'][name='SUB_BTN'][value='Course Search']"
+    course_search_btn = driver.find_element_by_css_selector(course_search_css)
     course_search_btn.click()
 
     # Click on 'View Section' button for matching COURSE CODE
@@ -91,8 +91,7 @@ try:
         for section in sections:
             course_section_data.add_row(section)
 
-        print(course_section_data.get_string(
-            title=f"Available Sections for Course Code {COURSE_CODE}"))
+        print(course_section_data)
     else:
         print("No sections found")
 
