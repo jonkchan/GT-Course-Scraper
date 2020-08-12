@@ -76,8 +76,9 @@ try:
     course_rows = driver.find_elements_by_tag_name("tr")
     for course_row in course_rows:
         if COURSE_CODE in course_row.get_attribute("innerText"):
+            view_section_css = "input[name='SUB_BTN'][value='View Sections']"
             view_section_button = course_row.find_element_by_css_selector(
-                "input[name='SUB_BTN'][value='View Sections']")
+                view_section_css)
             view_section_button.click()
             break
 
@@ -88,12 +89,15 @@ try:
     section_rows = driver.find_elements_by_css_selector(section_table_css)
     for section_row in section_rows:
         if COURSE_CODE in section_row.get_attribute("innerText"):
+            # Delimit section_row inner text by \t and split into array
             section_data = section_row.get_attribute(
                 "innerText").split("\t")[1:]
             sections.append(section_data)
 
     if sections:
         course_section_data = PrettyTable()
+
+        # Course Section Table Header
         course_section_data.field_names = ["CRN", "Subj", "Crse", "Sec", "Cmp", "Bas", "Cred", "Title", "Days",
                                            "Time", "Cap", "Act", "Rem", "WL Cap", "WL Act", "WL Rem", "Instructor", "Location", "Attribute"]
         for section in sections:
