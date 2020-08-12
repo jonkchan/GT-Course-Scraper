@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-import time
 import os
 
 from dotenv import load_dotenv
@@ -24,8 +23,8 @@ driver.find_element_by_name("password").send_keys(GTPW)
 driver.find_element_by_name("submit").click()
 
 # Update Semester & Subject accordingly
-semester = "Fall 2020"
-subject = "Computer Science"
+SEMESTER = "Fall 2020"
+SUBJECT = "Computer Science"
 
 try:
     # Navigate to Student Services & Financial Aid - Select Term
@@ -34,7 +33,7 @@ try:
 
     # Select Semester from dropdown
     semester_dropdown = Select(driver.find_element_by_name("term_in"))
-    semester_dropdown.select_by_visible_text(semester)
+    semester_dropdown.select_by_visible_text(SEMESTER)
 
     # Click on 'Submit' button
     submit_btn = driver.find_element_by_css_selector(
@@ -48,7 +47,7 @@ try:
 
     # Select Major Subject from dropdown
     subject_dropdown = Select(driver.find_element_by_name("sel_subj"))
-    subject_dropdown.select_by_visible_text(subject)
+    subject_dropdown.select_by_visible_text(SUBJECT)
 
     course_search_btn = driver.find_element_by_css_selector(
         "input[type='submit'][name='SUB_BTN'][value='Course Search']")
