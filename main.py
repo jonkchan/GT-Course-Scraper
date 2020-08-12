@@ -16,22 +16,25 @@ driver = webdriver.Chrome(executable_path=path, chrome_options=options)
 URL = r'https://login.gatech.edu/cas/login?service=https%3A%2F%2Fsso.sis.gatech.edu%3A443%2Fssomanager%2Fc%2FSSB'
 driver.get(URL)
 
-# Get GT OSCAR Credentials from .env file
-GTID = os.getenv('GTID')
-GTPW = os.getenv('GTPW')
-
-# Log into GT OSCAR with credentials
-print("> Logging in...")
-driver.find_element_by_name("username").send_keys(GTID)
-driver.find_element_by_name("password").send_keys(GTPW)
-driver.find_element_by_name("submit").click()
-
-# Update Semester, Subject, and Course Code accordingly
-SEMESTER = "Fall 2020"
-SUBJECT = "Computer Science"
-COURSE_CODE = "6300"
-
 try:
+    # Get GT OSCAR Credentials from .env file
+    GTID = os.getenv('GTID')
+    GTPW = os.getenv('GTPW')
+
+    if not GTID or not GTPW:
+        raise Exception("Error: GTID / GTPW not provided in .env file")
+
+    # Log into GT OSCAR with credentials
+    print("> Logging in...")
+    driver.find_element_by_name("username").send_keys(GTID)
+    driver.find_element_by_name("password").send_keys(GTPW)
+    driver.find_element_by_name("submit").click()
+
+    # Update Semester, Subject, and Course Code accordingly
+    SEMESTER = "Fall 2020"
+    SUBJECT = "Computer Science"
+    COURSE_CODE = "6300"
+
     # Navigate to Student Services & Financial Aid - Select Term page
     URL = r"https://oscar.gatech.edu/pls/bprod/bwskfreg.P_AltPin"
     driver.get(URL)
