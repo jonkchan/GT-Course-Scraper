@@ -32,7 +32,7 @@ COURSE_CODE = "6300"
 ## Usage
 
 ```bash
-python main.py
+python main.py <course_code>
 ```
 
 ## Example
