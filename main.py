@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+from prettytable import PrettyTable
 import os
 
 from dotenv import load_dotenv
@@ -8,14 +9,14 @@ load_dotenv()
 # Open Webdriver for Chrome Version 84
 options = webdriver.ChromeOptions()
 options.add_argument("headless")
-driver = webdriver.Chrome(
-    executable_path='.\drivers\chromedriver.exe', chrome_options=options)
+path = '.\drivers\chromedriver.exe'
+driver = webdriver.Chrome(executable_path=path, chrome_options=options)
 
 # Navigate to GT Course Registration Website
 URL = r'https://login.gatech.edu/cas/login?service=https%3A%2F%2Fsso.sis.gatech.edu%3A443%2Fssomanager%2Fc%2FSSB'
 driver.get(URL)
 
-# Load GT OSCAR Credentials from .env file
+# Get GT OSCAR Credentials from .env file
 GTID = os.getenv('GTID')
 GTPW = os.getenv('GTPW')
 
@@ -31,12 +32,12 @@ SUBJECT = "Computer Science"
 COURSE_CODE = "6300"
 
 try:
-    # Navigate to Student Services & Financial Aid - Select Term
+    # Navigate to Student Services & Financial Aid - Select Term page
     URL = r"https://oscar.gatech.edu/pls/bprod/bwskfreg.P_AltPin"
     driver.get(URL)
 
     # Select Semester from dropdown
-    print("Selecting Semester...")
+    print(f"> Selecting {SEMESTER} Semester...")
     semester_dropdown = Select(driver.find_element_by_name("term_in"))
     semester_dropdown.select_by_visible_text(SEMESTER)
 
@@ -51,7 +52,7 @@ try:
     class_search_btn.click()
 
     # Select Subject from dropdown
-    print("Selecting Subject...")
+    print(f"> Selecting {SUBJECT} Subject...")
     subjects = driver.find_elements_by_css_selector("option")
     for subject in subjects:
         if subject.get_attribute("innerText") == SUBJECT:
@@ -64,7 +65,7 @@ try:
     course_search_btn.click()
 
     # Click on 'View Section' button for matching COURSE CODE
-    print("Selecting Course...")
+    print(f"> Searching for Course {COURSE_CODE}...")
     course_rows = driver.find_elements_by_tag_name("tr")
     for course_row in course_rows:
         if COURSE_CODE in course_row.get_attribute("innerText"):
@@ -74,14 +75,29 @@ try:
             break
 
     # Print available course section data
-    section_rows = driver.find_elements_by_css_selector(
-        "table.datadisplaytable tbody tr")
+    sections = []
+    section_table_css = "table.datadisplaytable tbody tr"
+    section_rows = driver.find_elements_by_css_selector(section_table_css)
     for section_row in section_rows:
         if COURSE_CODE in section_row.get_attribute("innerText"):
-            print(section_row.get_attribute("innerText"))
+            section_data = section_row.get_attribute(
+                "innerText").split("\t")[1:]
+            sections.append(section_data)
+
+    if sections:
+        course_section_data = PrettyTable()
+        course_section_data.field_names = ["CRN", "Subj", "Crse", "Sec", "Cmp", "Bas", "Cred", "Title", "Days",
+                                           "Time", "Cap", "Act", "Rem", "WL Cap", "WL Act", "WL Rem", "Instructor", "Location", "Attribute"]
+        for section in sections:
+            course_section_data.add_row(section)
+
+        print(course_section_data.get_string(
+            title=f"Available Sections for Course Code {COURSE_CODE}"))
+    else:
+        print("No sections found")
 
 except Exception as e:
     print(e)
 
 # Close Webdriver
-# driver.quit()
+driver.quit()
