@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.chrome.options import Options
 from prettytable import PrettyTable
 import os
 
@@ -12,8 +13,9 @@ SUBJECT = "Computer Science"
 COURSE_CODE = "6300"
 
 # Open Webdriver for Chrome Version 84
-options = webdriver.ChromeOptions()
-options.add_argument("headless")
+options = Options()
+options.add_argument('headless')
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
 path = '.\drivers\chromedriver.exe'
 driver = webdriver.Chrome(executable_path=path, chrome_options=options)
 
