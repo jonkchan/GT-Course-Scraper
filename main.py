@@ -1,3 +1,4 @@
+import sys
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
@@ -12,11 +13,17 @@ SEMESTER = 'Fall 2020'
 SUBJECT = 'Computer Science'
 COURSE_CODE = '6300'
 
-# Open Webdriver for Chrome Version 84
+# Check if Command Line Arguments provided
+if sys.argv[1]:
+    COURSE_CODE = sys.argv[1]
+
+# Disable Browser Window
 options = Options()
 options.add_argument('headless')
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 path = '.\drivers\chromedriver.exe'
+
+# Open Webdriver for Chrome Version 84
 driver = webdriver.Chrome(executable_path=path, chrome_options=options)
 
 try:
