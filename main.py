@@ -37,7 +37,8 @@ try:
     semester_dropdown.select_by_visible_text(semester)
 
     # Click on 'Submit' button
-    submit_btn = driver.find_element_by_css_selector("input[type='submit']")
+    submit_btn = driver.find_element_by_css_selector(
+        "input[type='submit'][value='Submit']")
     submit_btn.click()
 
     # Click on 'Class Search' button
@@ -50,9 +51,10 @@ try:
     subject_dropdown.select_by_visible_text(subject)
 
     course_search_btn = driver.find_element_by_css_selector(
-        "input[type='SUB_BTN'][value='Course Search']")
+        "input[type='submit'][name='SUB_BTN'][value='Course Search']")
     course_search_btn.click()
 
+    # Update Course CRN below
     course_ref_numbers = ["86063"]
 
     for crn in course_ref_numbers:
