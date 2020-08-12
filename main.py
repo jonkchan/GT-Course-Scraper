@@ -6,8 +6,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Open Webdriver for Chrome Version 84
-driver = webdriver.Chrome('.\drivers\chromedriver.exe')
-# driver = webdriver.Ie('.\drivers\IEDriverServer.exe')
+options = webdriver.ChromeOptions()
+options.add_argument("headless")
+driver = webdriver.Chrome(
+    executable_path='.\drivers\chromedriver.exe', chrome_options=options)
 
 # Navigate to GT Course Registration Website
 URL = r'https://login.gatech.edu/cas/login?service=https%3A%2F%2Fsso.sis.gatech.edu%3A443%2Fssomanager%2Fc%2FSSB'
@@ -18,6 +20,7 @@ GTID = os.getenv('GTID')
 GTPW = os.getenv('GTPW')
 
 # Log into GT OSCAR with credentials
+print("Logging in...")
 driver.find_element_by_name("username").send_keys(GTID)
 driver.find_element_by_name("password").send_keys(GTPW)
 driver.find_element_by_name("submit").click()
@@ -26,7 +29,6 @@ driver.find_element_by_name("submit").click()
 SEMESTER = "Fall 2020"
 SUBJECT = "Computer Science"
 COURSE_CODE = "6300"
-# CRN = "86063"
 
 try:
     # Navigate to Student Services & Financial Aid - Select Term
@@ -34,6 +36,7 @@ try:
     driver.get(URL)
 
     # Select Semester from dropdown
+    print("Selecting Semester...")
     semester_dropdown = Select(driver.find_element_by_name("term_in"))
     semester_dropdown.select_by_visible_text(SEMESTER)
 
@@ -48,6 +51,7 @@ try:
     class_search_btn.click()
 
     # Select Subject from dropdown
+    print("Selecting Subject...")
     subjects = driver.find_elements_by_css_selector("option")
     for subject in subjects:
         if subject.get_attribute("innerText") == SUBJECT:
@@ -59,6 +63,7 @@ try:
     course_search_btn.click()
 
     # Click on 'View Section' button for matching COURSE CODE
+    print("Selecting Course...")
     course_rows = driver.find_elements_by_tag_name("tr")
     for course_row in course_rows:
         if COURSE_CODE in course_row.get_attribute("innerText"):
