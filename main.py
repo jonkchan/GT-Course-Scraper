@@ -20,6 +20,8 @@ path = '.\drivers\chromedriver.exe'
 driver = webdriver.Chrome(executable_path=path, chrome_options=options)
 
 try:
+    print("> Program starting...")
+
     # Navigate to GT Course Registration Website
     URL = r'https://login.gatech.edu/cas/login?service=https%3A%2F%2Fsso.sis.gatech.edu%3A443%2Fssomanager%2Fc%2FSSB'
     driver.get(URL)
