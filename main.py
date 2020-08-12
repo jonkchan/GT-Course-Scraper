@@ -22,9 +22,10 @@ driver.find_element_by_name("username").send_keys(GTID)
 driver.find_element_by_name("password").send_keys(GTPW)
 driver.find_element_by_name("submit").click()
 
-# Update Semester & Subject accordingly
+# Update Semester, Subject, and Course CRN accordingly
 SEMESTER = "Fall 2020"
 SUBJECT = "Computer Science"
+CRN = "86063"
 
 try:
     # Navigate to Student Services & Financial Aid - Select Term
@@ -45,19 +46,23 @@ try:
         "input[type='submit'][value='Class Search']")
     class_search_btn.click()
 
-    # Select Major Subject from dropdown
-    subject_dropdown = Select(driver.find_element_by_name("sel_subj"))
-    subject_dropdown.select_by_visible_text(SUBJECT)
+    # Select Subject from dropdown
+    subjects = driver.find_elements_by_css_selector("option")
+    for subject in subjects:
+        subject_text = subject.get_attribute("innerText")
+        if subject_text == SUBJECT:
+            subject.click()
 
+    # Click on 'Course Search' button
     course_search_btn = driver.find_element_by_css_selector(
         "input[type='submit'][name='SUB_BTN'][value='Course Search']")
     course_search_btn.click()
 
-    # Update Course CRN below
-    course_ref_numbers = ["86063"]
-
-    for crn in course_ref_numbers:
-        print(crn)
+    course_row = driver.find_elements_by_css_selector("td[class='dddefault']")
+    for row in course_row:
+        inner_value = row.get_attribute("value")
+        if inner_value == CRN:
+            print("matched")
 
 except Exception as e:
     print(e)
