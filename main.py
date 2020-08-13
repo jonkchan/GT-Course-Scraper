@@ -14,8 +14,10 @@ SUBJECT = 'Computer Science'
 COURSE_CODE = '6300'
 
 # Check if Command Line Arguments provided
-if sys.argv[1]:
+try:
     COURSE_CODE = sys.argv[1]
+except IndexError:
+    pass
 
 # Disable Browser Window
 options = Options()
