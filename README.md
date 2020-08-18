@@ -20,13 +20,13 @@ echo "GTID=<GT ID>" >> .env
 echo "GTPW=<GT Password>" >> .env
 ```
 
-3. Update `SEMESTER`, `SUBJECT`, and `COURSE_CODE` variables under `main.py`
+3. Update `SEMESTER`, `SUBJECT`, and `COURSE_CODE` arguments under `scraper.py`
 
 ```python
-# ./main.py
-SEMESTER = "Fall 2020"
-SUBJECT = "Computer Science"
-COURSE_CODE = "6300"
+# ./scraper.py
+semester = "Fall 2020"
+subject = "Computer Science"
+course_code = "6300"
 ```
 
 ## Usage
